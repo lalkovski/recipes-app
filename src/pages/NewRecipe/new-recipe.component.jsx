@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { addRecipe } from "../../redux/recipe/recipe.actions";
+
 import Input from "../../components/input/input.component";
 import TimeInput from "../../components/time-input/time-input.component";
 import TextArea from "../../components/textarea/textarea.component";
@@ -54,20 +58,36 @@ const StyledButton = styled.button`
 
 class NewRecipe extends Component {
   state = {
-    recipeName: "",
-    recipeSource: "",
-    selectedIngridents: [],
-    preparationHours: "",
-    preparationMinutes: "",
-    preparationInstructions: "",
+    recipe: {
+      name: "",
+      source: "",
+      selectedIngredients: [],
+      preparationHours: "",
+      preparationMinutes: "",
+      preparationInstructions: "",
+    },
   };
 
   handleChange = (event) => {
     const { value, name } = event.target;
 
-    this.setState({ [name]: value });
-    console.log("the state is");
-    console.log(this.state.recipeName);
+    this.setState((prevState) => ({
+      recipe: {
+        ...prevState.recipe,
+        [name]: value,
+      },
+    }));
+  };
+
+  addIngredients = (selectedIngredients) => {
+    this.setState((state) => ({
+      recipe: { ...state.recipe, selectedIngredients },
+    }));
+  };
+
+  handleSubmit = (event) => {
+    addRecipe(this.state.recipe);
+    return <NavLink to={`/`} />;
   };
 
   render() {
@@ -76,21 +96,21 @@ class NewRecipe extends Component {
         <h1>New Recipe</h1>
         <FormContainer>
           <Input
-            name="recipeName"
+            name="name"
             handleChange={this.handleChange}
-            value={this.state.recipeName}
+            value={this.state.recipe.name}
             label="Recipe Name"
             required
           />
           <Input
-            name="recipeSource"
+            name="source"
             handleChange={this.handleChange}
-            value={this.state.recipeSource}
+            value={this.state.recipe.source}
             label="Recipe Source"
           />
           <Dropdown
             name="List of Ingridients"
-            handleChange={this.handleChange}
+            handleChange={this.addIngredients}
             options={IngredientList}
             required
           />
@@ -104,12 +124,14 @@ class NewRecipe extends Component {
           <TextArea
             name="preparationInstructions"
             handleChange={this.handleChange}
-            value={this.state.preparationInstructions}
+            value={this.state.recipe.preparationInstructions}
             label="Preparation Instructions"
           />
           <ButtonContainer>
-            <StyledButton>Save</StyledButton>
-            <StyledButton>Discard</StyledButton>
+            <StyledButton onClick={()=> addRecipe(this.state.recipe)}>Save</StyledButton>
+            <NavLink to={`/`}>
+              <StyledButton>Discard</StyledButton>
+            </NavLink>
           </ButtonContainer>
         </FormContainer>
       </Container>
@@ -117,4 +139,12 @@ class NewRecipe extends Component {
   }
 }
 
-export default NewRecipe;
+// const mapStateToProps = (state) => ({
+//   recipes: state.recipes,
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+  addRecipe: (recipe) => dispatch(addRecipe(recipe)),
+});
+
+export default connect(null, mapDispatchToProps)(NewRecipe);

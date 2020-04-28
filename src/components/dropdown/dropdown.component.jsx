@@ -42,12 +42,13 @@ class Dropdown extends Component {
   deleteIngredient = (event, name) => {
     const array = [...this.state.ingredients];
     const deletableObject = array.filter((obj) => obj.name === name)[0];
-
     const index = array.indexOf(deletableObject);
-    console.log(index);
+
     if (index !== -1) {
       array.splice(index, 1);
       this.setState({ ingredients: array });
+      this.props.handleChange(array);
+
     }
   };
 
@@ -69,10 +70,11 @@ class Dropdown extends Component {
       this.state.selectedIngredient !== "" &&
       this.state.selectedIngredient.quantity >= 1
       &&
-      this.state.ingredients.filter((obj) => obj.name === this.state.selectedIngredient.name).length ===~ 0
+      this.state.ingredients.filter((obj) => obj.name === this.state.selectedIngredient.name).length === 0
     ) {
       this.setState((state) => {
         const ingredients = [...state.ingredients, state.selectedIngredient];
+        this.props.handleChange(ingredients);
         return {
           ingredients,
           quantity: 0,
@@ -92,7 +94,6 @@ class Dropdown extends Component {
   };
 
   render() {
-    // console.log(this.state.ingridients);
     return (
       <Container>
         <StyledLabel>{this.props.name}</StyledLabel>

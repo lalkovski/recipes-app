@@ -7,11 +7,11 @@ const StyledInput = styled.input`
 `;
 
 
-const Input = (props) => {
+const Input = ({ handleChange, label, ...otherProps }) => {
   return (
     <>
-      <label>{props.name}</label>
-      <StyledInput onChange={props.handleChange}/>
+      <label>{label}</label>
+      <StyledInput onChange={handleChange} {...otherProps}/>
     </>
   );
 };

@@ -1,26 +1,27 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledTextArea = styled.textarea`
+const Container = styled.div`
   display: flex;
-  margin: 1%;
-  resize: none;
+  flex-direction: column;
+  align-items: center;
   width: 50%;
-  height: 300%;
+  height: 100%;
 `;
 
-interface Props {
-  name?: string;
-  cols?: number;
-  rows?: number;
-}
+const StyledTextArea = styled.textarea`
+  margin: 0;
+  resize: none;
+  margin-top:2%;
+  width: 100%;
+`;
 
-const Input = (props: Props) => {
+const Input = ({ name, handleChange, label, ...otherProps }) => {
   return (
-    <>
-      <label>{props.name}</label>
-      <StyledTextArea />
-    </>
+    <Container>
+      <label>{label}</label>
+      <StyledTextArea name={name} onChange={handleChange} rows={12}/>
+    </Container>
   );
 };
 

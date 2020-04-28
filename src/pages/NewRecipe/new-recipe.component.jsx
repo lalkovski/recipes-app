@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import Input from "../../components/input/input.component";
 import TimeInput from "../../components/time-input/time-input.component";
 import TextArea from "../../components/textarea/textarea.component";
+import Dropdown from "../../components/dropdown/dropdown.component";
 
 const IngredientList = [
   { name: "Flour", quantity: 1, unit: "g" },
@@ -22,7 +23,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   align-items: center;
 `;
 
@@ -44,38 +45,76 @@ const TimeContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 1%;
 `;
 
-const NewRecipe = () => {
+const StyledButton = styled.button`
+  margin: 1em;
+`;
 
-
-  const [name, setName] = useState("");
-  const handleChange = (event) => {
-    const value = event.target.value;
-
-    setName(value);
+class NewRecipe extends Component {
+  state = {
+    recipeName: "",
+    recipeSource: "",
+    selectedIngridents: [],
+    preparationHours: "",
+    preparationMinutes: "",
+    preparationInstructions: "",
   };
 
-  console.log(name);
+  handleChange = (event) => {
+    const { value, name } = event.target;
 
-  return (
-    <Container>
-      <h1>New Recipe</h1>
-      <FormContainer>
-        <Input name="Recipe Name" onChange={handleChange} />
-        <Input name="Recipe source" />
-        <Input name="List of ingridients" />
-        <TimeContainer>
-          <TimeInput name="Preparation time" />
-        </TimeContainer>
-        <TextArea name="Preparation instructions" />
-        <ButtonContainer>
-          <button>Save</button>
-          <button>Discard</button>
-        </ButtonContainer>
-      </FormContainer>
-    </Container>
-  );
-};
+    this.setState({ [name]: value });
+    console.log("the state is");
+    console.log(this.state.recipeName);
+  };
+
+  render() {
+    return (
+      <Container>
+        <h1>New Recipe</h1>
+        <FormContainer>
+          <Input
+            name="recipeName"
+            handleChange={this.handleChange}
+            value={this.state.recipeName}
+            label="Recipe Name"
+            required
+          />
+          <Input
+            name="recipeSource"
+            handleChange={this.handleChange}
+            value={this.state.recipeSource}
+            label="Recipe Source"
+          />
+          <Dropdown
+            name="List of Ingridients"
+            handleChange={this.handleChange}
+            options={IngredientList}
+            required
+          />
+          <TimeContainer>
+            <TimeInput
+              name="PreparationTime"
+              handleChange={this.handleChange}
+              label="Preparation Time"
+            />
+          </TimeContainer>
+          <TextArea
+            name="preparationInstructions"
+            handleChange={this.handleChange}
+            value={this.state.preparationInstructions}
+            label="Preparation Instructions"
+          />
+          <ButtonContainer>
+            <StyledButton>Save</StyledButton>
+            <StyledButton>Discard</StyledButton>
+          </ButtonContainer>
+        </FormContainer>
+      </Container>
+    );
+  }
+}
 
 export default NewRecipe;

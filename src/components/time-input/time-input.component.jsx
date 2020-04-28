@@ -14,6 +14,7 @@ const StyledLabel = styled.label`
 
 const InputContainer = styled.div`
   display: flex;
+  margin-top: 2%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -26,18 +27,28 @@ const Container = styled.div`
   height: 100%;
 `;
 
-interface Props {
-  name: string;
-}
-
-const TimeInput = (props: Props) => {
+const TimeInput = ({ label, name, handleChange, ...otherProps }) => {
   return (
     <Container>
-      <StyledLabel>{props.name}</StyledLabel>
+      <StyledLabel>{label}</StyledLabel>
       <InputContainer>
-        <StyledInput type="number" min="0" max="23" placeholder="0" />
+        <StyledInput
+          name="preparationHours"
+          type="number"
+          min="0"
+          max="23"
+          placeholder="0"
+          onChange={handleChange}
+        />
         Hours &nbsp;
-        <StyledInput type="number" min="0" max="59" placeholder="0" />
+        <StyledInput
+          name="preparationMinutes"
+          type="number"
+          min="0"
+          max="59"
+          placeholder="0"
+          onChange={handleChange}
+        />
         Minutes
       </InputContainer>
     </Container>

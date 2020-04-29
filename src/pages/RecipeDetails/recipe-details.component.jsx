@@ -8,9 +8,10 @@ import { removeRecipe } from "../../redux/recipe/recipe.actions";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   align-items: center;
+  background-color: #62a5a1;
 `;
 
 const LeftContainer = styled.div`
@@ -32,6 +33,100 @@ const ParentContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  background-color: #fff;
+`;
+
+const StyledH1 = styled.h1`
+  color: #fff;
+  font-size: 2.5rem;
+`;
+
+const StyledH3 = styled.h3`
+  color: #62a5a1;
+  margin: 5% 0 0 0;
+`;
+
+const StyledP = styled.p`
+  margin: 0;
+  font-size: 2rem;
+`;
+
+const IngredientDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+`;
+
+const IngredientP = styled.p`
+  margin: 0;
+  padding: 1%;
+  margin: 1%;
+  font-size: 1.5rem;
+  border: 1px solid #dddddd;
+`;
+
+const InstructionsP = styled.p`
+  margin: 5px 5%;
+  font-size: 1.3rem;
+  text-align: justify;
+`;
+
+const CustomButton = styled.button`
+  width: 30%;
+  height: 52px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  background-color: #62a5a1;
+  color: white;
+  border: 1px solid #62a5a1;
+  font-family: Roboto;
+  margin: 0 2%;
+
+  &:hover {
+    background-color: white;
+    color: #62a5a1;
+    border: 1px solid #62a5a1;
+  }
+`;
+
+const CustomNavLink = styled(NavLink)`
+  width: 21%;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  background-color: #62a5a1;
+  color: white;
+  border: 1px solid #62a5a1;
+  font-family: Roboto;
+  text-decoration: none;
+  margin: 0 2%;
+
+  &:hover {
+    background-color: white;
+    color: #62a5a1;
+    border: 1px solid #62a5a1;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10%;
 `;
 
 const RecipeDetails = ({ history, recipes, removeRecipe }) => {
@@ -39,7 +134,7 @@ const RecipeDetails = ({ history, recipes, removeRecipe }) => {
   const filteredRecipes = recipes.filter((recipe) => recipe.id === id);
   console.log(recipes.filter((recipe) => recipe.id === id));
 
-  // const recipes = [
+  // const filteredRecipes = [
   //   {
   //     id: "06cc50db-01ea-42e0-ba02-a9cf9e533c82",
   //     name: "Recipe No. 1",
@@ -80,50 +175,49 @@ const RecipeDetails = ({ history, recipes, removeRecipe }) => {
   const ingredientList = filteredRecipes[0].selectedIngredients.map(
     (ingredient) => {
       return (
-        <p key={ingredient.name}>
-          {ingredient.name}&nbsp;{ingredient.quantity}
+        <IngredientP key={ingredient.name}>
+          {ingredient.name}
+          &nbsp;
+          {ingredient.quantity}
           {ingredient.unit}
-        </p>
+        </IngredientP>
       );
     }
   );
 
+  const handleSubmit = () => {
+    if (window.confirm("Do you want to remove this recipe?")) {
+      removeRecipe(filteredRecipes[0]);
+      history.push("/");
+    }
+  };
+
   return (
     <Container>
-      <h1>Recipe Details</h1>
+      <StyledH1>Recipe Details</StyledH1>
       <ParentContainer>
         <LeftContainer>
-          <h2>Recipe Name</h2>
-          <p>{filteredRecipes[0].name}</p>
-
-          <h2>Recipe Source</h2>
-          <p>{filteredRecipes[0].source}</p>
-
-          <h2>Ingrident List</h2>
-          <div>{ingredientList}</div>
-
-          <h2>Preparation Time</h2>
-          <p>
+          <StyledH3>Recipe Name</StyledH3>
+          <StyledP>{filteredRecipes[0].name}</StyledP>
+          <StyledH3>Recipe Source</StyledH3>
+          <StyledP>{filteredRecipes[0].source}</StyledP>
+          <StyledH3>Ingrident List</StyledH3>
+          <IngredientDiv>{ingredientList}</IngredientDiv>
+          <StyledH3>Preparation Time</StyledH3>
+          <StyledP>
             {formattedHours !== "00" ? formattedHours + " Hours " : ""}
             {formattedMinutes} Minutes
-          </p>
-
-          <button
-            onClick={() => {
-              removeRecipe(filteredRecipes[0]);
-              history.push("/");
-            }}
-          >
-            Remove recipe
-          </button>
-          <NavLink to={`/`}>
-            <button>Recipe List</button>
-          </NavLink>
+          </StyledP>
+          <ButtonContainer>
+            <CustomButton onClick={handleSubmit}>Remove Recipe</CustomButton>
+            <CustomNavLink to={`/`}>Recipe List</CustomNavLink>
+          </ButtonContainer>
         </LeftContainer>
         <RightContainer>
-          <h2>Recipe Instructions</h2>
-
-          <p>{filteredRecipes[0].preparationInstructions}</p>
+          <StyledH3>Recipe Instructions</StyledH3>
+          <InstructionsP>
+            {filteredRecipes[0].preparationInstructions}
+          </InstructionsP>
         </RightContainer>
       </ParentContainer>
     </Container>

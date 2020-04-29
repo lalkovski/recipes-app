@@ -4,6 +4,13 @@ import { withRouter } from "react-router-dom";
 import { removeRecipe } from "../../redux/recipe/recipe.actions";
 
 const Table = ({ recipes, removeRecipe, history }) => {
+
+  const handleSubmit = (recipe) => {
+    if (window.confirm("Do you want to remove the recipe?")) {
+      removeRecipe(recipe);
+    }
+  }
+
   return (
     <table>
       <thead>
@@ -85,7 +92,7 @@ const Table = ({ recipes, removeRecipe, history }) => {
                     >
                       See more
                     </button>
-                    <button onClick={() => {removeRecipe(recipe)}}>Remove</button>
+                    <button onClick={() => handleSubmit(recipe)}>Remove</button>
                   </td>
                 </tr>
               );

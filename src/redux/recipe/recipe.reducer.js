@@ -3,8 +3,6 @@ import {
   REMOVE_RECIPE,
 } from "../recipe/recipe.actions";
 
-import { removeRecipe } from "./recipe.actions";
-
 const INITIAL_STATE = {
   recipes: [],
 };
@@ -19,7 +17,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_RECIPE:
       return {
         ...state,
-        recipes: removeRecipe(state.recipes, action.payload),
+        recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id),
       };
     default:
       return state;

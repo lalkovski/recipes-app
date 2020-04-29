@@ -65,7 +65,7 @@ class NewRecipe extends Component {
     recipe: {
       id: "",
       name: "",
-      source: "",
+      source: "/",
       selectedIngredients: [],
       preparationHours: 0,
       preparationMinutes: 0,
@@ -152,7 +152,6 @@ class NewRecipe extends Component {
           <Input
             name="source"
             handleChange={this.handleChange}
-            value={this.state.recipe.source}
             label="Recipe Source"
           />
           <Dropdown

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { addRecipe } from "../../redux/recipe/recipe.actions";
+import { v4 as uuidv4 } from "uuid";
 
 import Input from "../../components/input/input.component";
 import TimeInput from "../../components/time-input/time-input.component";
@@ -52,20 +53,26 @@ const ButtonContainer = styled.div`
   margin-top: 1%;
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.div`
   margin: 1em;
+  width: 50px;
+  height: 50px;
+  background-color: red;
 `;
 
 class NewRecipe extends Component {
   state = {
     recipe: {
+      id: "",
       name: "",
       source: "",
       selectedIngredients: [],
-      preparationHours: "",
-      preparationMinutes: "",
+      preparationHours: 0,
+      preparationMinutes: 0,
       preparationInstructions: "",
     },
+    errorfields: [],
+    isSuccess: false,
   };
 
   handleChange = (event) => {
@@ -85,16 +92,56 @@ class NewRecipe extends Component {
     }));
   };
 
-  handleSubmit = (event) => {
-    addRecipe(this.state.recipe);
-    return <NavLink to={`/`} />;
+  handleSubmit = async (event) => {
+    const recipe = this.state.recipe;
+    const errorfields = [];
+    if (recipe.name === "") {
+      errorfields.push("You must have a recipe name.");
+    }
+    if (
+      (recipe.preparationMinutes <= 0 && recipe.preparationHours <= 0) ||
+      (recipe.preparationMinutes >= 60 && recipe.preparationHours <= 0) ||
+      (recipe.preparationMinutes < 0 && recipe.preparationHours > 0)
+    ) {
+      errorfields.push(
+        "You must have the preparation time be at least a minute."
+      );
+    }
+    if (recipe.preparationInstructions === "") {
+      errorfields.push("You must have preparation instructions.");
+    }
+    if (recipe.selectedIngredients.length < 1) {
+      errorfields.push("You must have at least one ingredient selected.");
+    }
+    if (errorfields.length === 0) {
+      const id = await uuidv4();
+      this.setState((state) => ({
+        recipe: {
+          ...state.recipe,
+          id: id,
+        },
+      }));
+      this.props.addRecipe(this.state.recipe);
+      console.log(this.state.recipe);
+      this.setState({ errorfields: [] });
+      this.setState({ isSuccess: true });
+    } else {
+      this.setState({ errorfields: errorfields });
+      this.setState({ isSuccess: false });
+    }
   };
 
   render() {
+    if (this.state.isSuccess) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <Container>
         <h1>New Recipe</h1>
         <FormContainer>
+          {this.state.errorfields &&
+            this.state.errorfields.map((e) => <p key={e}>{e}</p>)}
           <Input
             name="name"
             handleChange={this.handleChange}
@@ -128,7 +175,7 @@ class NewRecipe extends Component {
             label="Preparation Instructions"
           />
           <ButtonContainer>
-            <StyledButton onClick={()=> addRecipe(this.state.recipe)}>Save</StyledButton>
+            <StyledButton onClick={this.handleSubmit}>Save</StyledButton>
             <NavLink to={`/`}>
               <StyledButton>Discard</StyledButton>
             </NavLink>
@@ -138,10 +185,6 @@ class NewRecipe extends Component {
     );
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   recipes: state.recipes,
-// });
 
 const mapDispatchToProps = (dispatch) => ({
   addRecipe: (recipe) => dispatch(addRecipe(recipe)),

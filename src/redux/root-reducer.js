@@ -6,11 +6,11 @@ import recipeReducer from "./recipe/recipe.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["recipe"],
+  whitelist: ["recipes"],
 };
 
 const rootReducer = combineReducers({
-  recipes: recipeReducer,
+  recipe: recipeReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

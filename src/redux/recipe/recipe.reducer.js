@@ -3,7 +3,7 @@ import {
   REMOVE_RECIPE,
 } from "../recipe/recipe.actions";
 
-import { addRecipesToRedux, removeRecipe } from "./recipe.actions";
+import { removeRecipe } from "./recipe.actions";
 
 const INITIAL_STATE = {
   recipes: [],
@@ -14,7 +14,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
     case ADD_RECIPE:
       return {
         ...state,
-        recipes: addRecipesToRedux(state.recipes, action.payload),
+        recipes: [...state.recipes, action.payload],
       };
     case REMOVE_RECIPE:
       return {

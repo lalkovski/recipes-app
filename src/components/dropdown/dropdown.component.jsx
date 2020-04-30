@@ -1,87 +1,16 @@
 import React, { Component } from "react";
 import ListItems from "../list-items/list-items.component";
-import styled from "styled-components";
+import {
+  Container,
+  StyledInputDropdown,
+  StyledH3Form,
+  DropdownContainer,
+  StyledSelect,
+  StyledLabelUnit,
+  CustomButtonDropdown,
+  DropdownListContainer,
+} from "../../styles/styles";
 
-const DropdownContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledInput = styled.input`
-  display: flex;
-  margin: 1% 0 1% 1%;
-  width: 4%;
-  border: 1px solid #62a5a1;
-  background-color: #f5f5f5;
-  font-family: Roboto;
-`;
-
-
-const StyledH3Form = styled.h3`
-  color: #62a5a1;
-  margin: 2% 0 0 0;
-`;
-
-
-const StyledLabelUnit = styled.label`
-  display: flex;
-  margin: 0 0.5em 0 0.2em;
-  align-self: center;
-  justify-self: center;
-  font-size: 1rem;
-  color: #62a5a1;
-`;
-
-const CustomButtonDropdown = styled.button`
-  width: %;
-  height: 80%;
-  letter-spacing: 0.5px;
-  line-height: 20px;
-  padding: 0 25px 0 25px;
-  font-size: 10px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  border: 1px solid #62a5a1;
-  font-family: Roboto;
-  margin: 0;
-  background-color: #62a5a1;
-
-  &:hover {
-    background-color: white;
-    color: #62a5a1;
-    border: 1px solid #62a5a1;
-  }
-`;
-
-const ListContainer = styled.div`
-  display: flex;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-
-const StyledSelect = styled.select`
-  width: 8%;
-  border: 1px solid #62a5a1;
-  background-color: #f5f5f5;
-  font-family: Roboto;
-`;
 class Dropdown extends Component {
   state = {
     quantity: "",
@@ -98,7 +27,6 @@ class Dropdown extends Component {
       array.splice(index, 1);
       this.setState({ ingredients: array });
       this.props.handleChange(array);
-
     }
   };
 
@@ -118,9 +46,10 @@ class Dropdown extends Component {
 
     if (
       this.state.selectedIngredient !== "" &&
-      this.state.selectedIngredient.quantity >= 1
-      &&
-      this.state.ingredients.filter((obj) => obj.name === this.state.selectedIngredient.name).length === 0
+      this.state.selectedIngredient.quantity >= 1 &&
+      this.state.ingredients.filter(
+        (obj) => obj.name === this.state.selectedIngredient.name
+      ).length === 0
     ) {
       this.setState((state) => {
         const ingredients = [...state.ingredients, state.selectedIngredient];
@@ -155,7 +84,7 @@ class Dropdown extends Component {
               </option>
             ))}
           </StyledSelect>
-          <StyledInput
+          <StyledInputDropdown
             type="number"
             name="quantity"
             id="quantity"
@@ -170,12 +99,12 @@ class Dropdown extends Component {
             Add
           </CustomButtonDropdown>
         </DropdownContainer>
-        <ListContainer>
+        <DropdownListContainer>
           <ListItems
             deleteIngredient={this.deleteIngredient}
             ingredients={this.state.ingredients}
           />
-        </ListContainer>
+        </DropdownListContainer>
       </Container>
     );
   }

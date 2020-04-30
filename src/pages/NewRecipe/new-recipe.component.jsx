@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
-import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 import { addRecipe } from "../../redux/recipe/recipe.actions";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,6 +8,17 @@ import Input from "../../components/input/input.component";
 import TimeInput from "../../components/time-input/time-input.component";
 import TextArea from "../../components/textarea/textarea.component";
 import Dropdown from "../../components/dropdown/dropdown.component";
+import {
+  NewRecipeContainer,
+  StyledH1,
+  ParentContainer,
+  FormContainer,
+  TimeContainer,
+  ButtonContainer,
+  CustomButtonNR,
+  CustomNavLink,
+  ErrorP,
+} from "../../styles/styles";
 
 const IngredientList = [
   { name: "Flour", quantity: 1, unit: "g" },
@@ -23,98 +33,6 @@ const IngredientList = [
   { name: "Potatoes", quantity: 1, unit: "g" },
   { name: "Meat", quantity: 1, unit: "g" },
 ];
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  background-color: #62a5a1;
-`;
-
-const ParentContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  background-color: #fff;
-`;
-
-const StyledH1 = styled.h1`
-  color: #fff;
-  font-size: 2.5rem;
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-`;
-
-const TimeContainer = styled.div`
-  display: block;
-  margin: 0;
-`;
-
-const CustomButtonNR = styled.button`
-  width: 26%;
-  height: 52px;
-  letter-spacing: 0.5px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
-  font-size: 15px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  background-color: #62a5a1;
-  color: white;
-  border: 1px solid #62a5a1;
-  font-family: Roboto;
-  margin: 0 2%;
-
-  &:hover {
-    background-color: white;
-    color: #62a5a1;
-    border: 1px solid #62a5a1;
-  }
-`;
-
-const CustomNavLink = styled(NavLink)`
-  width: 21%;
-  height: 50px;
-  letter-spacing: 0.5px;
-  line-height: 50px;
-  padding: 0 35px 0 35px;
-  font-size: 15px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  background-color: #62a5a1;
-  color: white;
-  border: 1px solid #62a5a1;
-  font-family: Roboto;
-  text-decoration: none;
-  margin: 0 2%;
-
-  &:hover {
-    background-color: white;
-    color: #62a5a1;
-    border: 1px solid #62a5a1;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 4%;
-`;
 
 class NewRecipe extends Component {
   state = {
@@ -178,7 +96,6 @@ class NewRecipe extends Component {
         },
       }));
       this.props.addRecipe(this.state.recipe);
-      console.log(this.state.recipe);
       this.setState({ errorfields: [] });
       this.setState({ isSuccess: true });
     } else {
@@ -193,12 +110,12 @@ class NewRecipe extends Component {
     }
 
     return (
-      <Container>
+      <NewRecipeContainer>
         <StyledH1>New Recipe</StyledH1>
         <ParentContainer>
           <FormContainer>
             {this.state.errorfields &&
-              this.state.errorfields.map((e) => <p key={e}>{e}</p>)}
+              this.state.errorfields.map((e) => <ErrorP key={e}>{e}</ErrorP>)}
             <Input
               name="name"
               handleChange={this.handleChange}
@@ -236,7 +153,7 @@ class NewRecipe extends Component {
             </ButtonContainer>
           </FormContainer>
         </ParentContainer>
-      </Container>
+      </NewRecipeContainer>
     );
   }
 }

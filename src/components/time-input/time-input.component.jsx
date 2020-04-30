@@ -7,9 +7,9 @@ const StyledInput = styled.input`
   width: 8%;
 `;
 
-const StyledLabel = styled.label`
-  display: flex;
-  align-self: center;
+const StyledH3Form = styled.h3`
+  color: #62a5a1;
+  margin: 2% 0 0 0;
 `;
 
 const InputContainer = styled.div`
@@ -23,6 +23,8 @@ const InputContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-items: center;
   width: 100%;
   height: 100%;
 `;
@@ -30,7 +32,7 @@ const Container = styled.div`
 const TimeInput = ({ label, name, handleChange, ...otherProps }) => {
   return (
     <Container>
-      <StyledLabel>{label}</StyledLabel>
+      <StyledH3Form>{label}</StyledH3Form>
       <InputContainer>
         <StyledInput
           name="preparationHours"

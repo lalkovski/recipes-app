@@ -27,15 +27,28 @@ const IngredientList = [
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   align-items: center;
+  background-color: #62a5a1;
 `;
+
+const ParentContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #fff;
+`;
+
+const StyledH1 = styled.h1`
+  color: #fff;
+  font-size: 2.5rem;
+`;
+
 
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 2%;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -47,17 +60,61 @@ const TimeContainer = styled.div`
   margin-bottom: 1%;
 `;
 
-const ButtonContainer = styled.div`
+const CustomButton = styled.button`
+  width: 30%;
+  height: 52px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
   display: flex;
-  flex-direction: row;
-  margin-top: 1%;
+  justify-content: center;
+  background-color: #62a5a1;
+  color: white;
+  border: 1px solid #62a5a1;
+  font-family: Roboto;
+  margin: 0 2%;
+
+  &:hover {
+    background-color: white;
+    color: #62a5a1;
+    border: 1px solid #62a5a1;
+  }
 `;
 
-const StyledButton = styled.div`
-  margin: 1em;
-  width: 50px;
+const CustomNavLink = styled(NavLink)`
+  width: 21%;
   height: 50px;
-  background-color: red;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  background-color: #62a5a1;
+  color: white;
+  border: 1px solid #62a5a1;
+  font-family: Roboto;
+  text-decoration: none;
+  margin: 0 2%;
+
+  &:hover {
+    background-color: white;
+    color: #62a5a1;
+    border: 1px solid #62a5a1;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10%;
 `;
 
 class NewRecipe extends Component {
@@ -138,48 +195,48 @@ class NewRecipe extends Component {
 
     return (
       <Container>
-        <h1>New Recipe</h1>
-        <FormContainer>
-          {this.state.errorfields &&
-            this.state.errorfields.map((e) => <p key={e}>{e}</p>)}
-          <Input
-            name="name"
-            handleChange={this.handleChange}
-            value={this.state.recipe.name}
-            label="Recipe Name"
-            required
-          />
-          <Input
-            name="source"
-            handleChange={this.handleChange}
-            label="Recipe Source"
-          />
-          <Dropdown
-            name="List of Ingridients"
-            handleChange={this.addIngredients}
-            options={IngredientList}
-            required
-          />
-          <TimeContainer>
-            <TimeInput
-              name="PreparationTime"
+        <StyledH1>New Recipe</StyledH1>
+        <ParentContainer>
+          <FormContainer>
+            {this.state.errorfields &&
+              this.state.errorfields.map((e) => <p key={e}>{e}</p>)}
+            <Input
+              name="name"
               handleChange={this.handleChange}
-              label="Preparation Time"
+              value={this.state.recipe.name}
+              label="Recipe Name"
+              required
             />
-          </TimeContainer>
-          <TextArea
-            name="preparationInstructions"
-            handleChange={this.handleChange}
-            value={this.state.recipe.preparationInstructions}
-            label="Preparation Instructions"
-          />
-          <ButtonContainer>
-            <StyledButton onClick={this.handleSubmit}>Save</StyledButton>
-            <NavLink to={`/`}>
-              <StyledButton>Discard</StyledButton>
-            </NavLink>
-          </ButtonContainer>
-        </FormContainer>
+            <Input
+              name="source"
+              handleChange={this.handleChange}
+              label="Recipe Source"
+            />
+            <Dropdown
+              name="List of Ingridients"
+              handleChange={this.addIngredients}
+              options={IngredientList}
+              required
+            />
+            <TimeContainer>
+              <TimeInput
+                name="PreparationTime"
+                handleChange={this.handleChange}
+                label="Preparation Time"
+              />
+            </TimeContainer>
+            <TextArea
+              name="preparationInstructions"
+              handleChange={this.handleChange}
+              value={this.state.recipe.preparationInstructions}
+              label="Preparation Instructions"
+            />
+            <ButtonContainer>
+              <CustomButton onClick={this.handleSubmit}>Save</CustomButton>
+              <CustomNavLink to={`/`}>Discard</CustomNavLink>
+            </ButtonContainer>
+          </FormContainer>
+        </ParentContainer>
       </Container>
     );
   }

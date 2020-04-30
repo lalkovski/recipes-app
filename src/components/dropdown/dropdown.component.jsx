@@ -14,6 +14,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledInput = styled.input`
@@ -21,6 +23,13 @@ const StyledInput = styled.input`
   margin: 1% 0 1% 1%;
   width: 3%;
 `;
+
+
+const StyledH3Form = styled.h3`
+  color: #62a5a1;
+  margin: 2% 0 0 0;
+`;
+
 
 const StyledLabel = styled.label`
   display: flex;
@@ -96,7 +105,7 @@ class Dropdown extends Component {
   render() {
     return (
       <Container>
-        <StyledLabel>{this.props.name}</StyledLabel>
+        <StyledH3Form>{this.props.name}</StyledH3Form>
         <DropdownContainer>
           <select onChange={this.handleSelect}>
             {this.props.options.map((ingredient) => (

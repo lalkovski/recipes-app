@@ -4,6 +4,7 @@ import styled from "styled-components";
 const StyledInput = styled.input`
   display: flex;
   margin: 1%;
+  text-align: center;
   background: none;
   background-color: #f5f5f5;
   color: black;

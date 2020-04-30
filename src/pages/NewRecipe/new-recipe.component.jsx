@@ -45,7 +45,6 @@ const StyledH1 = styled.h1`
   font-size: 2.5rem;
 `;
 
-
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,11 +56,11 @@ const FormContainer = styled.div`
 
 const TimeContainer = styled.div`
   display: block;
-  margin-bottom: 1%;
+  margin: 0;
 `;
 
-const CustomButton = styled.button`
-  width: 30%;
+const CustomButtonNR = styled.button`
+  width: 26%;
   height: 52px;
   letter-spacing: 0.5px;
   line-height: 50px;
@@ -114,7 +113,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 10%;
+  margin: 4%;
 `;
 
 class NewRecipe extends Component {
@@ -232,7 +231,7 @@ class NewRecipe extends Component {
               label="Preparation Instructions"
             />
             <ButtonContainer>
-              <CustomButton onClick={this.handleSubmit}>Save</CustomButton>
+              <CustomButtonNR onClick={this.handleSubmit}>Save</CustomButtonNR>
               <CustomNavLink to={`/`}>Discard</CustomNavLink>
             </ButtonContainer>
           </FormContainer>

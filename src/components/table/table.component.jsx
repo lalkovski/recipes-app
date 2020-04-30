@@ -78,7 +78,7 @@ const tdStyle = {
 
 const Table = ({ recipes, removeRecipe, history }) => {
   const handleSubmit = (recipe) => {
-    if (window.confirm("Do you want to remove the recipe?")) {
+    if (window.confirm("Do you want to remove this recipe?")) {
       removeRecipe(recipe);
     }
   };

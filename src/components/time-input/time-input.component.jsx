@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const StyledTimeInput = styled.input`
   display: flex;
   margin: 1%;
   width: 8%;
+  border: 1px solid #62a5a1;
+  background-color: #f5f5f5;
+  font-family: Roboto;
 `;
 
 const StyledH3Form = styled.h3`
@@ -29,12 +32,20 @@ const Container = styled.div`
   height: 100%;
 `;
 
+const StyledTimeP = styled.p`
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  font-size: 1rem;
+  color: #62a5a1;
+`;
+
 const TimeInput = ({ label, name, handleChange, ...otherProps }) => {
   return (
     <Container>
       <StyledH3Form>{label}</StyledH3Form>
       <InputContainer>
-        <StyledInput
+        <StyledTimeInput
           name="preparationHours"
           type="number"
           min="0"
@@ -42,8 +53,8 @@ const TimeInput = ({ label, name, handleChange, ...otherProps }) => {
           placeholder="0"
           onChange={handleChange}
         />
-        Hours &nbsp;
-        <StyledInput
+        <StyledTimeP>Hours &nbsp;</StyledTimeP>
+        <StyledTimeInput
           name="preparationMinutes"
           type="number"
           min="0"
@@ -51,7 +62,7 @@ const TimeInput = ({ label, name, handleChange, ...otherProps }) => {
           placeholder="0"
           onChange={handleChange}
         />
-        Minutes
+        <StyledTimeP>Minutes</StyledTimeP>
       </InputContainer>
     </Container>
   );

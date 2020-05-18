@@ -306,7 +306,7 @@ export const CustomButtonDropdown = styled.button`
   color: white;
   border: 1px solid #62a5a1;
   font-family: Roboto;
-  margin: 0;
+  margin: 0 10px;
   background-color: #62a5a1;
 
   &:hover {
@@ -541,4 +541,82 @@ export const ErrorP = styled.div`
   font-size: 2rem;
   text-align: center;
   color: #a00;
+`;
+
+export const ModalP = styled.p`
+  margin: 0 3%;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #62a5a1;
+`;
+
+export const StyledModal = styled.div`
+  display: flex;
+  border: 1px solid #ccc;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const StyledModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: 45%;
+  height: 40%;
+`;
+
+export const ModalButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 2% 0;
+`;
+
+export const InvisibleDiv = styled.div`
+  display: none;
+`;
+
+export const ModalInputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+`;
+
+export const ModalPContainer = styled.div`
+  display: flex;
+  width: 20%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalPError = styled.p`
+  margin: 0 3%;
+  font-size: 1.3rem;
+  text-align: center;
+  color: #d83c2d;
 `;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListItems from "../list-items/list-items.component";
+import IngredientModal from "../ingredient-modal/ingredient-modal.component";
 import {
   Container,
   StyledInputDropdown,
@@ -16,6 +17,7 @@ class Dropdown extends Component {
     quantity: "",
     selectedIngredient: { name: "Flour", quantity: 1, unit: "g" },
     ingredients: [],
+    modalShow: false,
   };
 
   deleteIngredient = (event, name) => {
@@ -96,8 +98,17 @@ class Dropdown extends Component {
             {this.state.selectedIngredient.unit}
           </StyledLabelUnit>
           <CustomButtonDropdown onClick={this.handleSubmit}>
-            Add
+            Add To List
           </CustomButtonDropdown>
+          <CustomButtonDropdown
+            onClick={() => this.setState({ modalShow: true })}
+          >
+            Add ingredient
+          </CustomButtonDropdown>
+          <IngredientModal
+            show={this.state.modalShow}
+            onHide={() => this.setState({ modalShow: false })}
+          />
         </DropdownContainer>
         <DropdownListContainer>
           <ListItems

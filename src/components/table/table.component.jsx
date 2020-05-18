@@ -118,9 +118,13 @@ const Table = ({ recipes, removeRecipe, history }) => {
               );
             })
           ) : (
-            <StyledImage>
-              <StyledIMG src={require("./noRecipes.png")} alt="Cute cat" />
-            </StyledImage>
+            <tr>
+              <td>
+                <StyledImage>
+                  <StyledIMG src={require("./noRecipes.png")} alt="Cute cat" />
+                </StyledImage>
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

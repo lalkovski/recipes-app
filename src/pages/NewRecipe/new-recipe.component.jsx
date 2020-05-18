@@ -20,20 +20,6 @@ import {
   ErrorP,
 } from "../../styles/styles";
 
-const IngredientList = [
-  { name: "Flour", quantity: 1, unit: "g" },
-  { name: "Milk", quantity: 1, unit: "ml" },
-  { name: "Oil", quantity: 1, unit: "ml" },
-  { name: "Salt", quantity: 1, unit: "g" },
-  { name: "Sugar", quantity: 1, unit: "g" },
-  { name: "Eggs", quantity: 1, unit: "g" },
-  { name: "Tomatoes", quantity: 1, unit: "g" },
-  { name: "Peppers", quantity: 1, unit: "g" },
-  { name: "Cheese", quantity: 1, unit: "g" },
-  { name: "Potatoes", quantity: 1, unit: "g" },
-  { name: "Meat", quantity: 1, unit: "g" },
-];
-
 class NewRecipe extends Component {
   state = {
     recipe: {
@@ -129,9 +115,9 @@ class NewRecipe extends Component {
               label="Recipe Source"
             />
             <Dropdown
-              name="List of Ingridients"
+              name="List of Ingredients"
               handleChange={this.addIngredients}
-              options={IngredientList}
+              options={this.props.ingredientsList}
               required
             />
             <TimeContainer>
@@ -158,8 +144,12 @@ class NewRecipe extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  ingredientsList: state.recipe.ingredients,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   addRecipe: (recipe) => dispatch(addRecipe(recipe)),
 });
 
-export default connect(null, mapDispatchToProps)(NewRecipe);
+export default connect(mapStateToProps, mapDispatchToProps)(NewRecipe);

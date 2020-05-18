@@ -212,8 +212,8 @@ export const CustomNavLinkList = styled(NavLink)`
 `;
 
 export const CustomButtonList = styled.button`
-  width: 20%;
-  height: 80%;
+  width: 22px;
+  height: 22px;
   letter-spacing: 0.5px;
   line-height: 20px;
   padding: 0 10px 0 10px;
@@ -226,7 +226,7 @@ export const CustomButtonList = styled.button`
   color: white;
   border: 1px solid #62a5a1;
   font-family: Roboto;
-  margin: 2% 5%;
+  margin-left: 4px;
   background-color: #62a5a1;
 
   &:hover {
@@ -237,25 +237,28 @@ export const CustomButtonList = styled.button`
 `;
 
 export const StyledListIngredient = styled.div`
+  padding: 4px;
+  margin: 10px;
+  font-size: 1.5rem;
+  border: 1px solid #dddddd;
   display: flex;
-  width: 100%;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  justify-self: center;
-  align-self: center;
+  width: auto;
 `;
 
 export const StyledListIngredientContainer = styled.div`
-  display: flex
-  width: 100vw;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const IngredientListP = styled.p`
-  margin: 0;
-  padding: 1%;
-  margin: 1%;
   font-size: 1rem;
+  margin: 0;
 `;
 
 export const DropdownContainer = styled.div`
@@ -619,4 +622,9 @@ export const ModalPError = styled.p`
   font-size: 1.3rem;
   text-align: center;
   color: #d83c2d;
+`;
+
+export const IngredientPContainer = styled.div`
+  display: flex;
+  width: 100%;
 `;

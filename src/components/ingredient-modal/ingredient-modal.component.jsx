@@ -28,6 +28,8 @@ const IngredientModal = ({ show, onHide, addIngredient }) => {
       addIngredient(ingredient);
       onHide();
       setErrorMessages([]);
+      setName("");
+      setUnit("");
     }
     if (name.trim() === "") {
       errorMessage.push("The ingredient name is required. ");
